@@ -1,0 +1,54 @@
+@model Product
+
+<div class="container">
+    <h1>Products | <a href="/categories">Categories</a></h1>
+
+    <div class="row mt-5">
+        <div class="col-md">
+            <div class="container w-75 mx-auto">
+                <h3 class="text-center">New Product</h3>
+
+                <form class="shadow p-3 rounded" asp-controller="Product" asp-action="Create" method="POST">
+                    
+                    <label asp-for="ProductId"></label>
+
+                    <div class="mb-3">
+                        <label asp-for="Name"></label>
+                        <span asp-validation-for="Name" class="text-danger font-weight-bold">
+                        </span>
+                        <input class="form-control" asp-for="Name">
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Description"></label>
+                        <span asp-validation-for="Description" class="text-danger font-weight-bold">
+                        </span>
+                        <input class="form-control" asp-for="Description">
+                    </div>
+
+                    <div class="mb-3">
+                        <label asp-for="Price"></label>
+                        <span asp-validation-for="Price" class="text-danger font-weight-bold">
+                        </span>
+                        <input type="number" step="0.01" class="form-control" asp-for="Price">
+                    </div>
+
+                    <button type="submit" class="btn btn-success">Create</button>
+                </form>
+            </div>
+        </div>
+        <div class="col-md">
+            <h3>Existing Products</h3>
+            @if( ViewBag.Products != null )
+            {
+                <div id="product_list">
+                    @foreach( var product in ViewBag.Products )
+                    {
+                        <a href="/product/view/@product.ProductId">@product.Name</a>
+                    }
+                </div>
+            }
+        </div>
+    </div>
+
+</div>

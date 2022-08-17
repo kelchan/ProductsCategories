@@ -1,0 +1,38 @@
+@model Association
+
+
+<div class="container">
+    <h1>@ViewBag.Category.Name</h1>
+
+    <div class="row mt-5">
+        <div class="col-md">
+            <div class="container w-75 mx-auto">
+                <h3 class="text-center">Products</h3>
+                <div id="product_list">
+                    @if( ViewBag.ProdList != null )
+                    {
+                        @foreach( Association product in ViewBag.ProdList.ProductsAssociated )
+                        {
+                            <p>@product.Product.Name</p>
+                        }
+                    }
+                </div>
+                
+            </div>
+        </div>
+        <div class="col-md">
+            <h3>Add Product</h3>
+
+            <form asp-route-categoryId="@ViewBag.Category.CategoryId" asp-action="AddProduct" asp-controller="Category" method="post">
+                <select asp-for="ProductId">
+                    @foreach( Product product in ViewBag.ProdNoAss )
+                    {
+                        <option value="@product.ProductId">@product.Name</option>
+                    }
+                </select>
+                <button class="btn btn-success" type="submit">Add Product</button>
+            </form>
+
+        </div>
+    </div>
+</div>
